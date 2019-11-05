@@ -20,6 +20,7 @@ html(lang="en")
         table(class="table table-striped" id="tblWeather")
             thead: tr
                 th(scope="col") Location
+                th(scope="col") Time
                 th(scope="col") Weather Condition
                 th(scope="col") Current Temperature (&deg;F)
                 th(scope="col") Temperature Low (&deg;F)
@@ -32,6 +33,7 @@ html(lang="en")
                 each entry in data
                     tr
                         th(scope="row")= entry.name + ', ' + entry.sys.country
+                        td= new Date(entry.dt*1000)
                         td= entry.weather[0].description
                         td= entry.main.temp
                         td= entry.main.temp_min
@@ -43,6 +45,7 @@ html(lang="en")
 
         br
         button(type="submit" class="btn btn-primary" id="btnSubmit") Get My Weather
+        p(style='text-align: right;') *Rain &amp; Snow Conditions are from the last 3 hours from the time the data was collected.
     script.
         $(document).ready(() => {
             $("#tblWeather").DataTable()
