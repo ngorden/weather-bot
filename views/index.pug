@@ -9,11 +9,15 @@ html(lang="en")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible" content="ie=edge")
         title Weather Bot
+
+        link(rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css")
+        script(src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")
+
     body: div(class="container body-content")
         h2 Weather Conditions
         br
 
-        table(class="table table-striped")
+        table(class="table table-striped" id="tblWeather")
             thead: tr
                 th(scope="col") Location
                 th(scope="col") Weather Condition
@@ -30,6 +34,7 @@ html(lang="en")
         button(type="submit" class="btn btn-primary" id="btnSubmit") Get My Weather
     script.
         $(document).ready(() => {
+            $("#tblWeather").DataTable()
             $("#btnSubmit").click(request)
         })
 
