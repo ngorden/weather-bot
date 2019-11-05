@@ -12,7 +12,12 @@ const port = process.env.PORT || 3001
 
 app.set("view engine", "pug")
 app.use(json({ limit: "1mb" }))
-app.get("/", (req, res) => res.render("index"))
+app.get("/", (req, res) => {
+    weatherdb.find({}, (err: Error, docs: Document[]) => {
+        if (err) res.render("index", { data: null })
+        else res.render("index", { data: docs })
+    })
+})
 
 const nodemodulesdir = join(__dirname, "node_modules")
 const jquerydir = join(nodemodulesdir, "jquery", "dist")

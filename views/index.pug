@@ -29,6 +29,17 @@ html(lang="en")
                 th(scope="col") Rain (mm)
                 th(scope="col") Snow (mm)
             tbody(id="wtr-contents")
+                each entry in data
+                    tr
+                        th(scope="row")= entry.name + ', ' + entry.sys.country
+                        td= entry.weather[0].description
+                        td= entry.main.temp
+                        td= entry.main.temp_min
+                        td= entry.main.temp_max
+                        td= entry.wind.deg + ' @ ' + entry.wind.speed 
+                        td= entry.clouds.all
+                        td= (entry.rain) ? entry.rain.rain3h : '0'
+                        td= (entry.snow) ? entry.snow.snow3h : '0'
 
         br
         button(type="submit" class="btn btn-primary" id="btnSubmit") Get My Weather
