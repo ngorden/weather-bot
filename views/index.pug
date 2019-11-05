@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 html(lang="en")
     head
-        link(rel="stylesheet", href="/bootstrap/css")
+        link(rel="stylesheet" href="/bootstrap/css")
         script(src="/jquery")
         script(src="/popper")
         script(src="/bootstrap/js")
         meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
         title Weather Bot
-    body
-        h2 Weather for Iowa City 
+    body: div(class="container body-content")
+        h2 Weather Conditions
+        br
+
+        table(class="table table-striped")
+            thead: tr
+                th(scope="col") Location
+                th(scope="col") Weather Condition
+                th(scope="col") Current Temperature (&deg;F)
+                th(scope="col") Temperature Low (&deg;F)
+                th(scope="col") Temperature High (&deg;F)
+                th(scope="col") Wind
+                th(scope="col") Cloudiness (%)
+                th(scope="col") Rain (mm)
+                th(scope="col") Snow (mm)
+            tbody(id="wtr-contents")
+
+        br
         button(type="submit" class="btn btn-primary" id="btnSubmit") Get My Weather
     script.
         $(document).ready(() => {

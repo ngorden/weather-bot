@@ -20,7 +20,7 @@ const popperdir = join(nodemodulesdir, "popper.js", "dist", "umd")
 const bootstrapdir = join(nodemodulesdir, "bootstrap", "dist")
 
 const apikey = process.env.WEATHER_API
-const weatherURI = `https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=${apikey}`
+const weatherURI = `https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=imperial&appid=${apikey}`
 
 app.post("/getweather", (req, res) => {
     let lat = req.body.lat
