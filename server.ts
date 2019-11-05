@@ -12,7 +12,7 @@ const port = process.env.PORT || 3001
 
 app.set("view engine", "pug")
 app.use(json({ limit: "1mb" }))
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
     weatherdb.find({}, (err: Error, docs: Document[]) => {
         if (err) res.render("index", { data: null })
         else res.render("index", { data: docs })
@@ -36,7 +36,7 @@ app.post("/getweather", (req, res) => {
         .then(resp => resp.json())
         .then(data => weatherdb.insert(data))
         .catch(err => console.error(err))
-    res.status(200)
+    res.redirect('/')
 })
 
 app.get("/jquery", (req, res) => res.sendFile("jquery.js", { root: jquerydir }))
