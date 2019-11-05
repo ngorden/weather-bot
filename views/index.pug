@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        link(rel="stylesheet", href="/bootstrap/css")
+        script(src="/jquery")
+        script(src="/popper")
+        script(src="/bootstrap/js")
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Weather Bot
+    body
+        h2 Weather for Iowa City 
+        button(type="submit" class="btn btn-primary" id="btnSubmit") Get My Weather
+    script.
+        $(document).ready(() => {
+            $("#btnSubmit").click(request)
+        })
+
+        function request() {
+            if ("geolocation" in navigator){
+                navigator.geolocation.getCurrentPosition(position => {
+                    let lat = position.coords.latitude
+                    let lon = position.coords.longitude
+                    let data = { lat: lat, lon: lon }
+                    $.ajax({
+                        type: "POST",
+                        url: "/getweather",
+                        contentType: "application/json",
+                        data: JSON.stringify(data)
+                    })
+                })
+            } else {
+                alert("Location Unavailable")
+            }
+        }
