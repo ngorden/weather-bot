@@ -1,0 +1,11 @@
+h2 Weather Details
+p= 'Location Name: ' + data.name
+p= 'High Temperature: ' + data.main.temp_max + '°F' 
+p= 'Low Temperature: ' + data.main.temp_min + '°F'
+p= 'Humidity: ' + data.main.humidity + '%'
+p= 'Conditions: ' + data.weather[0].main
+
+<br>
+a(class="btn btn-link" href="/") Return to Table
+
+script(src="scripts/timestampToDate.js")    

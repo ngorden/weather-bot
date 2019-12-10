@@ -11,6 +11,7 @@ html(lang="en")
         title Weather Bot
 
         link(rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js")
         script(src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")
 
     body: div(class="container body-content")
@@ -19,40 +20,31 @@ html(lang="en")
 
         table(class="table table-striped" id="tblWeather")
             thead: tr
-                th(scope="col") Location
-                th(scope="col") Time
-                th(scope="col") Weather Condition
-                th(scope="col") Current Temperature (&deg;F)
+                th(scope="col") Date
+                th(scope="col") City
                 th(scope="col") Temperature Low (&deg;F)
                 th(scope="col") Temperature High (&deg;F)
-                th(scope="col") Wind (mph)
-                th(scope="col") Cloudiness (%)
-                th(scope="col") Rain (mm)
-                th(scope="col") Snow (mm)
+                th(scope="col") 
             tbody(id="wtr-contents")
                 each entry in data
                     tr
-                        th(scope="row")= entry.name + ', ' + entry.sys.country
-                        td= new Date(entry.dt*1000)
-                        td= entry.weather[0].description
-                        td= entry.main.temp
+                        td(id= "date")= entry.dt
+                        th(scope="row")= entry.name 
                         td= entry.main.temp_min
                         td= entry.main.temp_max
-                        td= entry.wind.deg + ' @ ' + entry.wind.speed 
-                        td= entry.clouds.all
-                        td= (entry.rain) ? entry.rain.rain3h : '0'
-                        td= (entry.snow) ? entry.snow.snow3h : '0'
+                        td: a(href="/details/"+entry._id) Details
 
         br
-        button(type="submit" class="btn btn-primary" id="btnSubmit") Get My Weather
+        button(type="button" class="btn btn-primary" id="btnSubmit") Get My Weather
         p(style='text-align: right;') *Rain &amp; Snow Conditions are from the last 3 hours from the time the data was collected.
     script.
         $(document).ready(() => {
             $("#tblWeather").DataTable()
-            $("#btnSubmit").click(request)
-        })
+            $("#btnSubmit").click(request)   
+                 })
 
         function request() {
+            debugger
             if ("geolocation" in navigator){
                 navigator.geolocation.getCurrentPosition(position => {
                     let lat = position.coords.latitude
@@ -62,10 +54,13 @@ html(lang="en")
                         type: "POST",
                         url: "/getweather",
                         contentType: "application/json",
-                        data: JSON.stringify(data)
+                        data: JSON.stringify(data),
+                        success: resData => location.href = "/details/" + resData
                     })
                 })
             } else {
                 alert("Location Unavailable")
             }
         }
+script(src="scripts/timestampToDate.js")
+script(src="scripts/app.js")
